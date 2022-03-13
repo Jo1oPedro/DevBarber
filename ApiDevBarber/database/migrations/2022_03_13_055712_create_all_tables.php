@@ -21,13 +21,13 @@ class CreateAllTables extends Migration
             $table->string('password');
         });
     
-        Schema::create('users_favorites', function (Blueprint $table) {
+        Schema::create('user_favorites', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
             $table->integer('id_barber');
         });
 
-        Schema::create('users_appointments', function (Blueprint $table) {
+        Schema::create('user_appointments', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
             $table->integer('id_barber');
@@ -43,26 +43,26 @@ class CreateAllTables extends Migration
             $table->string('longitude')->nullable();
         });
     
-        Schema::create('barbers_photos', function (Blueprint $table) {
+        Schema::create('barber_photos', function (Blueprint $table) {
             $table->id();
             $table->integer('id_barber');
             $table->string('url');
         });
 
-        Schema::create('barbers_reviews', function (Blueprint $table) {
+        Schema::create('barber_reviews', function (Blueprint $table) {
             $table->id();
             $table->integer('id_barber');
             $table->float('rate');
         });
 
-        Schema::create('barbers_services', function (Blueprint $table) {
+        Schema::create('barber_services', function (Blueprint $table) {
             $table->id();
             $table->integer('id_barber');
             $table->string('name');
             $table->float('price');
         });
 
-        Schema::create('barbers_testimonials', function (Blueprint $table) {
+        Schema::create('barber_testimonials', function (Blueprint $table) {
             $table->id();
             $table->integer('id_barber');
             $table->string('name');
@@ -70,7 +70,7 @@ class CreateAllTables extends Migration
             $table->string('body');
         });
 
-        Schema::create('barbers_availabilitys', function (Blueprint $table) {
+        Schema::create('barber_availabilities', function (Blueprint $table) {
             $table->id();
             $table->integer('id_barber');
             $table->float('weekday');
@@ -89,13 +89,13 @@ class CreateAllTables extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('user_favorites');
-        Schema::dropIfExists('users_appointments');
+        Schema::dropIfExists('user_appointments');
         Schema::dropIfExists('barbers');
-        Schema::dropIfExists('barbers_photos');
-        Schema::dropIfExists('barbers_reviews');
-        Schema::dropIfExists('barbers_services');
-        Schema::dropIfExists('barbers_testimonials');
-        Schema::dropIfExists('barbers_availabilitys');
+        Schema::dropIfExists('barber_photos');
+        Schema::dropIfExists('barber_reviews');
+        Schema::dropIfExists('barber_services');
+        Schema::dropIfExists('barber_testimonials');
+        Schema::dropIfExists('barber_availabilities');
 
     }
 }
