@@ -27,6 +27,21 @@ class AuthController extends Controller
         $newUser->email = $email;
         $newUser->password = $hash;
         $newUser->save();
+
+        $token = Auth::attempt([
+            'email' => $email,
+            'password' => $password
+        ]);
+
+        if(!$token) {
+            $array['error'] = 'Ocorreu um erro!';
+            return $array;
+        }
+
+        $info = auth()->user();
+        $array['data'] = $info;
+        $array['token'] = $token;
+
         return $array;
     }
 }
