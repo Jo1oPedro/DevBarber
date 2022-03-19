@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Http\Requests\AuthFormRequest;
 
 class AuthController extends Controller
 {
@@ -13,19 +14,8 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['create', 'login']]);
     }
 
-    public function create(Request $request) {
+    public function create(AuthFormRequest $request) {
         $array = ['error' => ''];
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-        ]);
-
-        if($validator->fails()) {
-            $array['error'] = 'Dados incorretos';
-            return $array;
-        }
 
         $name = $request->name;
         $email = $request->email;
