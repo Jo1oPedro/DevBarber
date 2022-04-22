@@ -70,4 +70,22 @@ class AuthController extends Controller
         $array['token'] = $token;
         return $array;
     }
+
+    public function logout() {
+        auth()->logout();
+        return ['error' => ''];
+    }
+
+    public function refresh() {
+        $array = ['error' => ''];
+
+        $token = Auth::refresh();
+
+        $info =  auth()->user();
+        $info['avatar'] = url('media/avatars/'.$info['avatar']);
+        $array['data'] = $info;
+        $array['token'] = $token;
+
+        return $array;
+    }
 }
