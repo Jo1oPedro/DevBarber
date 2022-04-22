@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Http\Requests\AuthFormRequest;
+use App\Http\Requests\LoginFormRequest;
 
 class AuthController extends Controller
 {
@@ -28,7 +29,8 @@ class AuthController extends Controller
         $newUser->password = $hash;
         $newUser->save();
 
-        $token = Auth::attempt([
+        // $token = Auth::attemp(...) também funciona
+        $token = auth()->attempt([
             'email' => $email,
             'password' => $password
         ]);
@@ -39,9 +41,33 @@ class AuthController extends Controller
         }
 
         $info = auth()->user();
+        $info['avatar'] = url('media/avatars/'.$info['avatar']);
         $array['data'] = $info;
         $array['token'] = $token;
 
+        return $array;
+    }
+
+    public function login(LoginFormRequest $request) {
+        $array = ['error' => ''];
+
+        $email = $request->email;
+        $password = $request->password;
+
+        $token = auth()->attempt([
+            'email' => $email,
+            'password' => $password,
+        ]);
+
+        if(!$token) {
+            $array['error'] = 'Usuario e/ou senha errados!';
+            return $array;
+        }
+
+        $info = auth()->user();
+        $info['avatar'] = url('media/avatars/'.$info['avatar']);
+        $array['data'] = $info;
+        $array['token'] = $token;
         return $array;
     }
 }
