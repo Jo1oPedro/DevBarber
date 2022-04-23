@@ -73,7 +73,7 @@ class CreateAllTables extends Migration
         Schema::create('barber_availabilities', function (Blueprint $table) {
             $table->id();
             $table->integer('id_barber');
-            $table->float('weekday');
+            $table->string('weekday');
             $table->text('hours');
         });
 
